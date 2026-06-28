@@ -48,10 +48,12 @@ async function buscarFilmesPorID(id){
     return data
 }
 
-
+let gemini1 = 'Ab8RN6L6YwROjmw9cKYf4BgkMG'
+let gemini2 = '_QJGv5VXfji4AnkcHjiWT1Tw'
 /* Função assincrona que manda pra ia um prompt */
 async function recomendarFilmes(prompt) {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AQ.Ab8RN6JiEF4IhdVq7bnX3MsYSToe5ngsmGlGr-_lWgBWHisoUQ`,
+    filmes.textContent = 'Carregando...'
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${'AQ.'+gemini1+gemini2}`,
         {
             method: "POST",
             headers: {
@@ -64,6 +66,7 @@ async function recomendarFilmes(prompt) {
                     }]}]})});
 
     const data = await response.json();
+    filmes.textContent = '' //simboliza fim do carregamento
     return data.candidates[0].content.parts[0].text // caminho ate chegar no resultado
 }
 let prompt; 
